@@ -2,12 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import DoctorList from './components/DoctorList';
 import mockDoctors from './data/mockDoctorsData'; 
+import handleDelete from './components/DeleteButton';
 
 function App() {
-
-  const handleDelete = (id) => {
-    console.log('Doctor with ID', id, 'will be deleted.');
-  };
 
   return (
     <Router>
