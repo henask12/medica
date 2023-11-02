@@ -1,15 +1,42 @@
 .slick-prev::before,
 .slick-next::before {
   color: #007bff;
-  font-size: 40px;
+  font-size: 60px;
 }
 
 .slick-prev {
-  left: 10px;
-  z-index: 1;
+  left: 11%;
 }
 
 .slick-next {
-  right: 50px;
-  z-index: 1;
+  right: 19%;
+  
+}
+.slick-prev,
+.slick-next {
+  top: -45px;  
+  bottom: auto;
+  z-index: 1; 
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10%;
+}
+
+.social-icons a {
+  margin: 0 2%; 
+  color: grey; 
+  font-size: 20px; 
+  transition: color 0.3s ease; 
+}
+
+.social-icons a:hover {
+  color: #0077b5; 
+}
+
+.rounded-btn {
+  border-radius: 30px;
+  width: 80%;
 }
