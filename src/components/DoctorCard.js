@@ -6,14 +6,16 @@ import DeleteButton from './DeleteButton';
 
 function DoctorCard({ doctor, onDelete }) {
   return (
-    <div className="card-container">
-      <div className="doctor-card">
-        <img src={doctor.image} alt={doctor.name} className="doctor-image" /> 
-        <h3>{doctor.name}</h3>
-        <p>Specialty: {doctor.specialty}</p>
-        <p>City: {doctor.city}</p>
-        <p>{doctor.description}</p>
-        <DeleteButton id={doctor.id} onDelete={onDelete} /> 
+    <div className="d-flex justify-content-center my-4">
+      <div className="card" style={{ width: '18rem' }}>
+        <img src={doctor.image} alt={doctor.name} className="card-img-top" />
+        <div className="card-body">
+          <h5 className="card-title">{doctor.name}</h5>
+          <p className="card-text">Specialty: {doctor.specialty}</p>
+          <p className="card-text">City: {doctor.city}</p>
+          <p className="card-text">{doctor.description}</p>
+          <DeleteButton id={doctor.id} onDelete={onDelete} />
+        </div>
       </div>
     </div>
   );

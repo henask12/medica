@@ -1,16 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 function DeleteButton({ onDelete, id }) {
   return (
-    <button onClick={() => onDelete(id)} className="delete-button">Delete</button>
+    <button onClick={() => onDelete(id)} className="btn btn-primary">Delete</button>
   );
 }
-
-const handleDelete = (id) => {
-  console.log('Doctor with ID', id, 'will be deleted.');
-};
 
 DeleteButton.propTypes = {
   onDelete: PropTypes.func.isRequired,
