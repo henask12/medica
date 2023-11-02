@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import DeleteButton from './DeleteButton';
 
 function DoctorCard({ doctor, onDelete }) {
   return (
@@ -12,7 +13,7 @@ function DoctorCard({ doctor, onDelete }) {
         <p>Specialty: {doctor.specialty}</p>
         <p>City: {doctor.city}</p>
         <p>{doctor.description}</p>
-        <button onClick={() => onDelete(doctor.id)} className="delete-button">Delete</button> 
+        <DeleteButton id={doctor.id} onDelete={onDelete} /> 
       </div>
     </div>
   );
