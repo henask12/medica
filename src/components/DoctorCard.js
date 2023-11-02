@@ -7,7 +7,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 function DoctorCard({ doctor }) {
   return (
     <div className="d-flex justify-content-center my-4">
-      <div className="card shadow-lg text-center" style={{
+      <div className="card shadow text-center" style={{
         width: '350px',
         height: '400px',
         borderRadius: '20px',
@@ -42,8 +42,7 @@ function DoctorCard({ doctor }) {
             <FaLinkedin />
           </a>
           </div>
-          <button className="btn btn-info mt-2 rounded-btn">Details</button>
-
+          <button className="rounded-btn">Details</button>
         </div>
       </div>
     </div>

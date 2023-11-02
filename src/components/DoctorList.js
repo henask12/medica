@@ -42,8 +42,8 @@ function DoctorList({ doctors, onDelete }) {
   };
 
   return (
-    <div>
-      <h2 className="text-center">Doctors List</h2>
+    <div className="doctorlist-container">
+      <h2 className="text-center">DOCTORS LIST</h2>
       <p className="text-center"style={{ color: '#777', fontSize: '0.9em' }} >Here you can find the best doctors</p>
       <Slider {...settings}>
         {doctors.map(doctor => (
