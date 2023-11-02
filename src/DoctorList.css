@@ -39,17 +39,18 @@
   color: red;
 }
 
-.slick-prev:before, .slick-next:before {
+.slick-prev::before,
+.slick-next::before {
   color: red;
   font-size: 40px;
 }
 
 .slick-prev {
-  left: 10px;  
-  z-index: 1;   
+  left: 10px;
+  z-index: 1;
 }
 
 .slick-next {
-  right: 50px; 
-  z-index: 1;  
+  right: 50px;
+  z-index: 1;
 }
