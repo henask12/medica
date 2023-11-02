@@ -55,6 +55,14 @@ function DoctorList({ doctors, onDelete }) {
 
 DoctorList.propTypes = {
   doctors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      specialty: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired
+    })
   ).isRequired,
   onDelete: PropTypes.func.isRequired
 };
