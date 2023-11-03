@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import DoctorCard from './DoctorCard';
 import Slider from 'react-slick';
 import '../DoctorList.css';
+import api from '../components/api/api';
 
-function DoctorList({ doctors, onDelete }) {
+function DoctorList({ onDelete }) {
+  const [doctors, setDoctors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);  
+
+  useEffect(() => {
+    api.get('http://localhost:3000/api/doctors')
+      .then(response => {
+        if (response.status !== 204) {
+          setDoctors(response.data);
+        } else {
+          console.log("No content in the response");
+        }
+        setIsLoading(false);  
+      })
+      .catch(error => {
+        console.error("Error fetching doctors:", error);
+        setIsLoading(false);  
+      });
+  }, []);
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -44,28 +64,26 @@ function DoctorList({ doctors, onDelete }) {
   return (
     <div className="doctorlist-container">
       <h2 className="text-center">DOCTORS LIST</h2>
-      <p className="text-center"style={{ color: '#777', fontSize: '0.9em' }} >Here you can find the best doctors</p>
-      <Slider {...settings}>
-        {doctors.map(doctor => (
-          <DoctorCard key={doctor.id} doctor={doctor} onDelete={onDelete} />
-        ))}
-      </Slider>
+      <p className="text-center" style={{ color: '#777', fontSize: '0.9em' }}>
+        Here you can find the best doctors
+      </p>
+      {isLoading ? (
+        <div>Loading doctors...</div>  
+      ) : doctors.length > 0 ? (
+        <Slider {...settings}>
+          {doctors.map(doctor => (
+            <DoctorCard key={doctor.id} doctor={doctor} onDelete={onDelete} />
+          ))}
+        </Slider>
+      ) : (
+        <div>No doctors available at the moment.</div>  
+      )}
     </div>
   );
 }
 
 DoctorList.propTypes = {
-  doctors: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      specialty: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired
-    })
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func,
 };
 
 export default DoctorList;
