@@ -68,7 +68,7 @@ function DoctorList({ onDelete }) {
         Here you can find the best doctors
       </p>
       {isLoading ? (
-        <div>Loading doctors...</div>  
+        <div className="text-center">Loading doctors...</div>  
       ) : doctors.length > 0 ? (
         <Slider {...settings}>
           {doctors.map(doctor => (
@@ -76,7 +76,7 @@ function DoctorList({ onDelete }) {
           ))}
         </Slider>
       ) : (
-        <div>No doctors available at the moment.</div>  
+        <div className="text-center">No doctors available at the moment.</div>  
       )}
     </div>
   );
