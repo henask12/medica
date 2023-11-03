@@ -1,26 +1,24 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import DoctorList from './components/DoctorList';
-import mockDoctors from './data/mockDoctorsData'; 
+
+import logo from './logo.svg';
+import './App.css';
+import Auth from './components/auth/auth';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import ForgotPassword from './components/auth/ForgotPassword';
+import SignIn from './components/auth/SignIn';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to="/doctors" className="nav-link">Doctors List</Link>
-            </li>
-          </ul>
-        </nav>
+    <div className="App">
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/SignIn" element={<SignIn />} />
+            <Route path="/" element={<Auth />} />
+          </Routes>
+        </div>
+      </Router>
+    </div>
 
-        <Routes>
-          <Route path="/doctors" element={<DoctorList doctors={mockDoctors} />} />
-        </Routes>
-
-      </div>
-    </Router>
   );
 }
 
