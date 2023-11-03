@@ -31,8 +31,8 @@
 }
 
 .social-icons a:hover {
-  transform: scale(1.4); 
-  transition: transform 0.3s ease-in-out; 
+  transform: scale(1.4);
+  transition: transform 0.3s ease-in-out;
 }
 
 .rounded-btn {
@@ -58,7 +58,7 @@
 }
 
 .rounded-btn:focus {
-  outline: none; 
+  outline: none;
 }
 
 .doctor-name {
@@ -70,4 +70,3 @@
   line-height: 1.2;
   text-transform: uppercase;
 }
-
