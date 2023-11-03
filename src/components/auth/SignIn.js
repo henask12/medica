@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Route, Switch } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function SignInForm() {
   const [state, setState] = React.useState({
@@ -13,12 +14,16 @@ function SignInForm() {
       [evt.target.name]: value
     });
   };
-
+  const navigate = useNavigate(); // Initialize navigate
+  const handleSignIn = () => {
+    // Assume successful sign-in
+    navigate("/sidebar"); // Use navigate to navigate to the sidebar
+  };
   const handleOnSubmit = evt => {
     evt.preventDefault();
 
     const { email, password } = state;
-    alert(`You are login with email: ${email} and password: ${password}`);
+    
 
     for (const key in state) {
       setState({
@@ -48,7 +53,9 @@ function SignInForm() {
           onChange={handleChange}
         />
         <Link to="/forgot-password">Forgot your password?</Link>
-        <button>Sign In</button>
+        <button id="signIn" onClick={() => handleSignIn("signIn")}>
+                Sign In
+        </button>
       </form>
     </div>
   );
