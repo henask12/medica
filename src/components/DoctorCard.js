@@ -25,7 +25,7 @@ function DoctorCard({ doctor }) {
           objectFit: 'cover'
         }} />
         <div className="card-body">
-          <h5 className="card-title" style={{ fontWeight: '600' }}>{doctor.name}</h5>
+          <h5 className="card-title doctor-name" style={{ fontWeight: '700' }}>{doctor.name}</h5>
           <p className="card-text" style={{ color: '#777', fontSize: '0.9em' }}>Specialty: {doctor.specialty}</p>
           <p className="card-text" style={{ color: '#777', fontSize: '0.9em' }}>City: {doctor.city}</p>
           <div className="social-icons">

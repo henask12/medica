@@ -31,7 +31,8 @@
 }
 
 .social-icons a:hover {
-  color: #7aaf07;
+  transform: scale(1.4); 
+  transition: transform 0.3s ease-in-out; 
 }
 
 .rounded-btn {
@@ -57,6 +58,16 @@
 }
 
 .rounded-btn:focus {
-  outline: none;
-  box-shadow: none; /* quita cualquier sombra que pueda aparecer en el foco */
+  outline: none; 
 }
+
+.doctor-name {
+  font-weight: 600;
+  border-bottom: 3px dotted #c2bfbf;
+  padding-bottom: 0.5em;
+  display: inline-block;
+  width: auto;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
