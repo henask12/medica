@@ -1,36 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
+
+import { createUser } from "../../redux/usersSlice";
 
 function SignUpForm() {
-  const [state, setState] = React.useState({
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  const [state, setState] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    password_confirmation: "",
   });
-  const handleChange = evt => {
+
+  const handleChange = (evt) => {
     const value = evt.target.value;
     setState({
       ...state,
-      [evt.target.name]: value
+      [evt.target.name]: value,
     });
   };
 
-  const handleOnSubmit = evt => {
+  const handleOnSubmit = async (evt) => {
     evt.preventDefault();
-
-    const { name, email, password } = state;
-    alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
-
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
+  
+    const { name, email, password, password_confirmation } = state;
+  
+    if (password !== password_confirmation) {
+      alert("Passwords do not match.");
+      return;
     }
+  
+    try {
+        const userData = { name, email, password, password_confirmation };
+      await dispatch(createUser(userData));
+  debugger
+      if (user.isAuthenticated) {
+        alert("Registration successful!");
+      } else if (user.error) {
+        alert('Registration failed. Please check your data and try again.');
+      }
+    } catch (error) {
+      alert('Registration failed. Please check your network connection.');
+    }
+  
+    setState({
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    });
   };
+  
 
   return (
     <div className="form-container sign-up-container">
@@ -57,6 +80,13 @@ function SignUpForm() {
           value={state.password}
           onChange={handleChange}
           placeholder="Password"
+        />
+        <input
+          type="password"
+          name="password_confirmation"
+          value={state.password_confirmation}
+          onChange={handleChange}
+          placeholder="Conform Password"
         />
         <button>Sign Up</button>
       </form>
