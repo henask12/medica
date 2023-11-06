@@ -12,7 +12,7 @@ export const createUser = createAsyncThunk('users/createUser', async (userData, 
   try {
     debugger
     const response = await usersService.createUser(userData);
-    return response.data;
+    return response.data.message;
   } catch (error) {
     return rejectWithValue(error);
   }
@@ -43,6 +43,7 @@ const usersSlice = createSlice({
         state.error = null;
       })
       .addCase(createUser.fulfilled, (state, action) => {
+        debugger
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = true;

@@ -6,9 +6,9 @@ import { createUser } from "../../redux/usersSlice";
 
 function SignUpForm() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.users.user);
 
-  const [state, setState] = useState({
+  const [stateReg, setStateReg] = useState({
     name: "",
     email: "",
     password: "",
@@ -17,8 +17,8 @@ function SignUpForm() {
 
   const handleChange = (evt) => {
     const value = evt.target.value;
-    setState({
-      ...state,
+    setStateReg({
+      ...stateReg,
       [evt.target.name]: value,
     });
   };
@@ -26,7 +26,7 @@ function SignUpForm() {
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
   
-    const { name, email, password, password_confirmation } = state;
+    const { name, email, password, password_confirmation } = stateReg;
   
     if (password !== password_confirmation) {
       alert("Passwords do not match.");
@@ -34,19 +34,26 @@ function SignUpForm() {
     }
   
     try {
-        const userData = { name, email, password, password_confirmation };
+      const userData = {
+        user: {
+          name,
+          email,
+          password,
+          password_confirmation,
+        }
+      };
+  
       await dispatch(createUser(userData));
   debugger
-      if (user.isAuthenticated) {
-        alert("Registration successful!");
-      } else if (user.error) {
-        alert('Registration failed. Please check your data and try again.');
+      if(user){
+
       }
+     
     } catch (error) {
-      alert('Registration failed. Please check your network connection.');
+     
     }
   
-    setState({
+    setStateReg({
       name: "",
       email: "",
       password: "",
@@ -63,28 +70,28 @@ function SignUpForm() {
         <input
           type="text"
           name="name"
-          value={state.name}
+          value={stateReg.name}
           onChange={handleChange}
           placeholder="Name"
         />
         <input
           type="email"
           name="email"
-          value={state.email}
+          value={stateReg.email}
           onChange={handleChange}
           placeholder="Email"
         />
         <input
           type="password"
           name="password"
-          value={state.password}
+          value={stateReg.password}
           onChange={handleChange}
           placeholder="Password"
         />
         <input
           type="password"
           name="password_confirmation"
-          value={state.password_confirmation}
+          value={stateReg.password_confirmation}
           onChange={handleChange}
           placeholder="Conform Password"
         />
