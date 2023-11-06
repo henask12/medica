@@ -1,12 +1,11 @@
-// src/redux/doctors/doctorsSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../components/api/api';
+import doctorsService from '../../services/doctorsService';
 
 export const fetchDoctors = createAsyncThunk(
   'doctors/fetchDoctors',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get('/doctors');
+      const response = await doctorsService.fetchDoctors();
       return response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data);
