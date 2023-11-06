@@ -53,8 +53,8 @@ DoctorCard.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     specialty: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
-  }).isRequired
+    image: PropTypes.string
+  })
 };
 
 export default DoctorCard;
