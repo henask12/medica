@@ -5,7 +5,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ForgotPassword from './components/auth/ForgotPassword';
 import SignIn from './components/auth/SignIn';
-import DoctorList from './components/DoctorList';
+import DoctorList from './components/doc/DoctorList';
 
 function App() {
   return (
