@@ -1,22 +1,20 @@
+.doctorlist-container {
+  padding: 0 5%;
+}
+
 .slick-prev::before,
 .slick-next::before {
-  color: #007bff;
+  color: #7aaf07;
   font-size: 60px;
 }
 
 .slick-prev {
-  left: 11%;
+  left: -4%;
+  z-index: 1;
 }
 
 .slick-next {
-  right: 19%;
-  
-}
-.slick-prev,
-.slick-next {
-  top: -45px;  
-  bottom: auto;
-  z-index: 1; 
+  right: -1%;
 }
 
 .social-icons {
@@ -26,17 +24,49 @@
 }
 
 .social-icons a {
-  margin: 0 2%; 
-  color: grey; 
-  font-size: 20px; 
-  transition: color 0.3s ease; 
+  margin: 0 2%;
+  color: grey;
+  font-size: 20px;
+  transition: color 0.3s ease;
 }
 
 .social-icons a:hover {
-  color: #0077b5; 
+  transform: scale(1.4);
+  transition: transform 0.3s ease-in-out;
 }
 
 .rounded-btn {
   border-radius: 30px;
   width: 80%;
+  background-color: #7aaf07;
+  color: white;
+  border: none;
+  padding: 2%;
+  transition: transform 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.rounded-btn:hover {
+  border: solid 3px #7aaf07;
+  background-color: white;
+  color: #7aaf07;
+}
+
+.rounded-btn:active {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(0.95);
+}
+
+.rounded-btn:focus {
+  outline: none;
+}
+
+.doctor-name {
+  font-weight: 600;
+  border-bottom: 3px dotted #c2bfbf;
+  padding-bottom: 0.5em;
+  display: inline-block;
+  width: auto;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
