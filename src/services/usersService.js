@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+console.log('API_BASE_URL:', API_BASE_URL);
 
 const usersService = {};
 
@@ -12,11 +13,9 @@ usersService.createUser = function (userData) {
       },
     })
     .then((response) => {
-      console.log('User creation response:', response.data);
       return response;
     })
     .catch((error) => {
-      console.error('User creation error:', error);
       throw error;
     });
 };
