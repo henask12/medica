@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function DeleteButton({ onDelete, id }) {
   return (
-    <button onClick={() => onDelete(id)} className="btn btn-primary">Delete</button>
+    <button onClick={() => onDelete(id)} className="rounded-btn">Delete</button>
   );
 }
 
