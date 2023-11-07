@@ -73,7 +73,7 @@ function SignUpForm() {
         },
       };
       const action = await dispatch(createUser(userData));
-
+debugger
       if (createUser.fulfilled.match(action)) {
         navigate('/sidebar');
       } else if (createUser.rejected.match(action)) {
