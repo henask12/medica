@@ -1,11 +1,7 @@
-
-import React from "react";
 import { Link, Route, Switch } from 'react-router-dom';
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginStart, loginSuccess, loginFailure } from '../redux/authSlice';
 
 
 function SignInForm() {
@@ -42,20 +38,6 @@ function SignInForm() {
       });
     }
 
-    // Dispatch the loginStart action to indicate the login process has started
-    dispatch(loginStart());
-
-    // Simulate API request (replace with actual fetch to your Rails API)
-    setTimeout(() => {
-      if (email === 'example@email.com' && password === 'password') {
-        // Dispatch the loginSuccess action with user data upon successful login
-        dispatch(loginSuccess({ email: email }));
-      } else {
-        // Dispatch the loginFailure action with an error message upon a failed login
-        dispatch(loginFailure('Invalid email or password'));
-      }
-    }, 1000);
-
     // Clear the form fields
     setState({
       email: "",
@@ -86,7 +68,6 @@ function SignInForm() {
         <button id="signIn" onClick={() => handleSignIn("signIn")}>
                 Sign In
         </button>
-        <button type="submit">Sign In</button>
       </form>
     </div>
   );
