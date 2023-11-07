@@ -10,12 +10,13 @@ function DoctorList() {
   const { doctors, isLoading, error } = useSelector((state) => state.doctors); 
 
   useEffect(() => {
-    dispatch(fetchDoctors());
-  }, [dispatch]);
+          dispatch(fetchDoctors());
+    }, [dispatch]); 
   
+    const slidesToShowDefault = 3;  
   const settings = {
-    dots: true,
-    infinite: true,
+    dots: doctors.length > slidesToShowDefault,
+    infinite: doctors.length > slidesToShowDefault,
     speed: 500,
     slidesToShow: 3,  
     slidesToScroll: 1,
