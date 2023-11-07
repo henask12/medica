@@ -1,7 +1,12 @@
+
+import React from "react";
+import { Link, Route, Switch } from 'react-router-dom';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginStart, loginSuccess, loginFailure } from '../redux/authSlice';
+
 
 function SignInForm() {
   const dispatch = useDispatch();
@@ -19,11 +24,23 @@ function SignInForm() {
       [evt.target.name]: value
     });
   };
-
+  const navigate = useNavigate(); // Initialize navigate
+  const handleSignIn = () => {
+    // Assume successful sign-in
+    navigate("/sidebar"); // Use navigate to navigate to the sidebar
+  };
   const handleOnSubmit = evt => {
     evt.preventDefault();
 
     const { email, password } = state;
+    
+
+    for (const key in state) {
+      setState({
+        ...state,
+        [key]: ""
+      });
+    }
 
     // Dispatch the loginStart action to indicate the login process has started
     dispatch(loginStart());
@@ -66,6 +83,9 @@ function SignInForm() {
           onChange={handleChange}
         />
         <Link to="/forgot-password">Forgot your password?</Link>
+        <button id="signIn" onClick={() => handleSignIn("signIn")}>
+                Sign In
+        </button>
         <button type="submit">Sign In</button>
       </form>
     </div>

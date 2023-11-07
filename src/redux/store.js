@@ -1,18 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authentication/authSlice';
 
-const store = configureStore({
-  reducer: {
-    auth: authReducer
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authentication/authSlice';
+import usersReducer from './usersSlice';
 import doctorsReducer from './doctors/doctorsSlice';
 
 const store = configureStore({
   reducer: {
-    auth: authReducer,
-    doctors: doctorsReducer 
-  }
+    users: usersReducer,
+        doctors: doctorsReducer 
+  },
 });
 
 export default store;
