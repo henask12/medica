@@ -1,6 +1,6 @@
 import './App.css';
 import Auth from './components/auth/auth';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import ForgotPassword from './components/auth/ForgotPassword';
 import Sidebar from './components/navigation/Sidebar';
 import SignIn from './components/auth/SignIn';
@@ -12,11 +12,19 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-            <Route path="/" element={<Auth />}/>
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/sidebar" element={<Sidebar />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/doctors" element={<DoctorList />} />
+          <Route path="/" element={<Auth />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/doctors"
+            element={
+              <div className="flex">
+                <Sidebar />
+                <DoctorList />
+              </div>
+            }
+          >
+          </Route>
         </Routes>
       </Router>
     </div>
