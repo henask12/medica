@@ -25,6 +25,18 @@ export const deleteDoctor = createAsyncThunk(
   }
 );
 
+export const addDoctor = createAsyncThunk(
+  'doctors/addDoctor',
+  async (doctorData, { rejectWithValue }) => {
+    try {
+      const response = await doctorsService.addDoctor(doctorData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const initialState = {
   doctors: [],
   isLoading: false,
@@ -60,8 +72,19 @@ const doctorsSlice = createSlice({
        
         state.error = action.payload;
         
+      })
+
+      .addCase(addDoctor.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addDoctor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.doctors.push(action.payload); 
+      })
+      .addCase(addDoctor.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
-    
   }
 });
 
