@@ -1,80 +1,97 @@
-/* eslint-disable */
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { login } from '../../redux/user_reducer';
-const Signin= () => {
-	const [formData, setFormData] = React.useState({
-		email: '',
-		password: '',
-	})
-	const dispatch = useDispatch()
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../../redux/usersSlice';
 
-	const handleChange = (event) => {
-		setFormData({ ...formData, [event.target.name]: event.target.value })
-	}
+const Signin = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
-	const handleSubmit = (event) => {
-		event.preventDefault()
-		if (vaidateData()) {
-			dispatch(login(formData))
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+  
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (validateData()) {
+      try {
+		const userData = {
+			user: formData
+		  };
+		const action = await dispatch(loginUser(userData));
+		if (loginUser.fulfilled.match(action)) {
+		  navigate('/');
+		} else if (loginUser.rejected.match(action)) {
+			setError(action.error.message);
 		}
-	}
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+  };
 
-	const vaidateData = () => {
-		if (formData.email === '' || formData.password === '') {
-			return false
-		}
-		return true
-	}
+  const validateData = () => {
+    if (formData.email === '' || formData.password === '') {
+      setError('Email and password are required');
+      return false;
+    }
+    setError(null);
+    return true;
+  };
 
-
-
-	return (
-		<div className="Auth-container">
-		
-			<form onSubmit={handleSubmit} className="Auth-form">
-				<div className="Auth-content">
-					<h3 className="Auth-title">Sign In</h3>
-					<div className="form-group mt-3 text-start">
-						<label htmlFor="email" >Email</label>
-						<input
-							type="email"
-							className="form-control mt-1"
-							name="email"
-							id="email"
-							placeholder="Enter Email"
-							required
-							value={formData.email}
-							onChange={handleChange}
-						/>
-					</div>
-					<div className="form-group mt-3 text-start">
-						<label htmlFor="password">Password</label>
-						<input
-							type="password"
-							className="form-control mt-1"
-							name="password"
-							id="password"
-							placeholder="Password"
-							required
-							value={formData.password}
-							onChange={handleChange}
-						/>
-					</div>
-				</div>
-				<div className="form-group mt-3 d-flex flex-column  align-items-center justify-content-center">
-					<button type="submit" className="btn btn-primary w-75 mb-2">Submit</button>
-					<p>
-						Don't have an account? <Link to="/signup">Sign Up</Link>
-					</p>
-					<p className="Auth-content">
-						<b>	Note:</b> This is a demo version and the database may be in sleep mode. <b> Please wait a few minutes</b> for it to respond on first use.	
-					</p>
-				</div>
-			</form>
-		</div>
-	)
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-md">
+        <h3 className="text-2xl font-semibold text-center mb-4">Sign In</h3>
+        {error && (
+          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded-md">
+            {error}
+          </div>
+        )}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="email" className="text-gray-600">Email</label>
+            <input
+              type="email"
+              className="w-full p-2 border rounded-md"
+              name="email"
+              id="email"
+              placeholder="Enter Email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="text-gray-600">Password</label>
+            <input
+              type="password"
+              className="w-full p-2 border rounded-md"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md">
+              Submit
+            </button>
+          </div>
+        </form>
+        <p className="text-center">
+          Do Not have an account? <Link to="/" className="text-blue-500 font-semibold"><b>Sign Up</b></Link>
+        </p>
+      </div>
+    </div>
+  );
 };
 
-export default Signin
+export default Signin;
