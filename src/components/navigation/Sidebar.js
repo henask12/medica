@@ -5,6 +5,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+
 const sidebarStyle = {
   position: "fixed",
   left: 10,
@@ -95,7 +96,7 @@ const Sidebar = () => {
               <ListItem
                 button
                 component={Link}
-                to="../pages/doctors"
+                to="/doctors"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
                 <AccountBoxIcon className="mr-2" /> {/* Icon */}
