@@ -21,4 +21,20 @@ doctorsService.fetchDoctors = function () {
     });
 };
 
+// Doctor delete
+
+doctorsService.deleteDoctor = function (doctorId) {
+  return axios
+    .delete(`${API_BASE_URL}/doctors/${doctorId}`)
+    .then((response) => {
+      console.log('Delete doctor response:', response);
+      return response;
+    })
+    .catch((error) => {
+      console.error('Delete doctor error:', error);
+      throw error;
+    });
+};
+
+
 export default doctorsService;
