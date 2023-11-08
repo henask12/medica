@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteDoctor, fetchDoctors } from '../../redux/doctors/doctorsSlice';
 import DoctorCard from './DoctorCard';
@@ -8,14 +8,21 @@ import '../../DoctorList.css';
 function RemoveDoctorsList() {
   const dispatch = useDispatch();
   const { doctors } = useSelector((state) => state.doctors);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
 
   useEffect(() => {
     dispatch(fetchDoctors());
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    dispatch(deleteDoctor(id));
-  };  
+    if (window.confirm('Are you sure you want to delete this doctor?')) {
+      dispatch(deleteDoctor(id));
+      setPopupMessage('Doctor has been removed successfully.');
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000); // hide the popup after 3 seconds
+    }
+  };
 
   const slidesToShowDefault = 3;
   const settings = {
@@ -52,6 +59,19 @@ function RemoveDoctorsList() {
         }
       }
     ]
+  };
+
+  const renderPopup = () => {
+    if (!showPopup) return null;
+
+    return (
+      <div className="popup-container">
+        <div className="popup">
+          <p>{popupMessage}</p>
+          <button onClick={() => setShowPopup(false)}>Close</button>
+        </div>
+      </div>
+    );
   };
 
   return (
