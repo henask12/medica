@@ -24,7 +24,6 @@ const Signin = () => {
 			user: formData
 		  };
 		const action = await dispatch(loginUser(userData));
-		debugger
 		if (loginUser.fulfilled.match(action)) {
 		  navigate('/');
 		} else if (loginUser.rejected.match(action)) {

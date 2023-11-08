@@ -18,7 +18,6 @@ export const createUser = createAsyncThunk('users/createUser', async (userData, 
 });
 
 export const loginUser = createAsyncThunk('users/login', async (loginData, { rejectWithValue }) => {
-  debugger
   try {
     const response = await usersService.login(loginData);
     return response.data;

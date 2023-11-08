@@ -9,7 +9,6 @@ import Signin from './components/user/SignIn';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.users.isAuthenticated);
-debugger
   return (
     <div className="App">
       <Router>
