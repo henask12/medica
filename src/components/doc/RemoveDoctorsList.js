@@ -22,7 +22,7 @@ function RemoveDoctorsList() {
     dots: doctors.length > slidesToShowDefault,
     infinite: doctors.length > slidesToShowDefault,
     speed: 500,
-    slidesToShow: 3,  
+    slidesToShow: 2,  
     slidesToScroll: 1,
     
     responsive: [
