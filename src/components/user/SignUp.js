@@ -12,8 +12,10 @@ const Signup = () => {
     password_confirmation: '',
   });
 
-  const [error, setError] = useState(null); // State for error message
-  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false); // State for showing the error dialog
+  const [error, setError] = useState(null);
+  const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -82,7 +84,10 @@ const Signup = () => {
     const action = await dispatch(createUser(userData));
 
     if (createUser.fulfilled.match(action)) {
-      navigate('/signin');
+      setSuccessMessage('Registration successful. Redirecting to Sign In page...');
+      setTimeout(() => {
+        navigate('/signin');
+      }, 2000);
     } else if (createUser.rejected.match(action)) {
       setError('Sign-up failed: ' + action.error.message);
       handleErrorDialogOpen();
@@ -101,6 +106,11 @@ const Signup = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-4 max-w-md w-full">
         <h3 className="text-2xl text-center font-semibold mb-4">Sign Up</h3>
+        {successMessage && (
+          <div className="bg-green-200 text-green-800 border p-2 rounded-md mb-4">
+            {successMessage}
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-600 text-sm font-medium mb-1">Name</label>
