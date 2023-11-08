@@ -17,7 +17,7 @@ function DoctorCard({ doctor }) {
       onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
       onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
       >
-        <img src={doctor.image} alt={doctor.name} className="card-img-top mx-auto" style={{
+        <img src={doctor.image_url} alt={doctor.name} className="card-img-top mx-auto" style={{
           borderTopLeftRadius: '20px',
           borderTopRightRadius: '20px',
           maxWidth: '100%',
@@ -53,7 +53,7 @@ DoctorCard.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     specialty: PropTypes.string.isRequired,
-    image: PropTypes.string
+    image_url: PropTypes.string
   })
 };
 
