@@ -1,5 +1,7 @@
 .doctorlist-container {
   padding: 0 5%;
+  margin-left: 17%;
+  padding-top: 5%;
 }
 
 .slick-prev::before,
