@@ -36,5 +36,20 @@ doctorsService.deleteDoctor = function (doctorId) {
     });
 };
 
+// Doctor add
+
+doctorsService.addDoctor = function (doctorData) {
+ 
+  return axios.post(`${API_BASE_URL}/doctors`, doctorData)
+  .then(response => {
+    console.log('Add doctor response:', response);
+    return response;
+  })
+  .catch(error => {
+    console.error('Add doctor error:', error);
+    
+    throw error;
+  });
+};
 
 export default doctorsService;
