@@ -7,6 +7,9 @@ import Signup from './components/user/SignUp';
 import { useSelector } from 'react-redux';
 import Signin from './components/user/SignIn';
 import ReservationList from './components/reservation/ReservationList';
+import AddDoctorForm from './components/doc/AddDoctorForm';
+import RemoveDoctorsList from './components/doc/RemoveDoctorsList';
+import DoctorDetails from './components/reservation/ReserveDoctor';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.users.isAuthenticated);
@@ -23,10 +26,26 @@ function App() {
               <Sidebar />
               <DoctorList />
             </>} />
-            <Route path="/sidebar" element={
+            <Route path="/reservation" element={
             <>
               <Sidebar />
               <ReservationList />
+            </>} />
+
+            <Route path="/addDoctor" element={
+            <>
+              <Sidebar />
+              <AddDoctorForm />
+            </>} />
+
+            <Route path="/deleteDoctor" element={
+            <>
+              <Sidebar />
+              <RemoveDoctorsList />
+            </>} />
+            <Route path="/doctors/:id" element={ <>
+              <Sidebar />
+              <DoctorDetails />
             </>} />
           </>
         ) : 

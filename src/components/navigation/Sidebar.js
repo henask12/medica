@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, List, ListItem, ListItemText } from "@mui/material";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/usersSlice";
+import BookIcon from '@mui/icons-material/Book';
 
 
 const sidebarStyle = {
@@ -32,6 +33,7 @@ const centerListStyle = "flex flex-col justify-center mt-8 ml-6";
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const isMobile = window.innerWidth < 768;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,7 +64,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     dispatch(logoutUser())
       .then(() => {
-        Navigate('/signin');
+        navigate('/signin');
       })
       .catch((error) => {
         console.log('Logout failed:', error);
@@ -73,7 +75,6 @@ const Sidebar = () => {
     <div>
       {isMobile ? (
         <button onClick={toggleSidebar} className="fixed top-4 left-4 z-50 p-2 bg-gray-100 rounded-md">
-          {/* Hamburger icon */}
           <div className={`w-6 h-0.5 mb-1 bg-gray-800 ${showSidebar ? "block" : "hidden"}`}></div>
           <div className={`w-6 h-0.5 mb-1 bg-gray-800 ${showSidebar ? "block" : "hidden"}`}></div>
           <div className={`w-6 h-0.5 mb-1 bg-gray-800 ${showSidebar ? "block" : "hidden"}`}></div>
@@ -84,7 +85,7 @@ const Sidebar = () => {
         <Card style={sidebarStyle}>
           {isMobile && (
             <button onClick={closeSidebar} className="fixed top-4 right-4 z-50 p-2 bg-gray-100 rounded-md">
-              {/* Close icon */}
+
               <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -103,7 +104,7 @@ const Sidebar = () => {
             </button>
           )}
 
-          <div className="bg-teal-500 text-white py-8 px-8">
+          <div className="bg-lime-500 text-white py-8 px-8">
             <h1 className="text-2xl font-semibold">24 Hour Doctor</h1>
           </div>
 
@@ -122,19 +123,29 @@ const Sidebar = () => {
               <ListItem
                 button
                 component={NavLink}
-                to="/sidebar"
+                to="/reservation"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
-                <AddBoxIcon className="mr-2" /> {/* Icon */}
+                <BookIcon className="mr-2" />
+                <ListItemText primary="My Reservation" />
+              </ListItem>
+              
+              <ListItem
+                button
+                component={NavLink}
+                to="/addDoctor"
+                className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
+              >
+                <AddBoxIcon className="mr-2" />
                 <ListItemText primary="Add Doctor" />
               </ListItem>
               <ListItem
                 button
                 component={NavLink}
-                to="/sidebar"
+                to="/deleteDoctor"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
-                <DeleteIcon className="mr-2" /> {/* Icon */}
+                <DeleteIcon className="mr-2" />
                 <ListItemText primary="Delete Doctor" />
               </ListItem>
               <ListItem

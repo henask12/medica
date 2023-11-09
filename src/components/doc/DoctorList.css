@@ -46,12 +46,39 @@
   padding: 2%;
   transition: transform 0.2s, box-shadow 0.2s;
   outline: none;
+  font-weight: 600;
 }
 
-.rounded-btn:hover {
+.add-doctor-btn {
+  border-radius: 30px;
+  width: 30%;
+  background-color: #7aaf07;
+  color: white;
+  border: none;
+  padding: 1%;
+  transition: transform 0.2s, box-shadow 0.2s;
+  outline: none;
+  font-weight: 600;
+}
+
+.rounded-btn:hover,
+.add-doctor-btn:hover {
   border: solid 3px #7aaf07;
   background-color: white;
   color: #7aaf07;
+}
+
+.btn-link {
+  color: #7aaf07;
+  text-decoration: none;
+  margin-left: 10%;
+  font-weight: 600;
+}
+
+.btn-link:hover {
+  text-decoration: none;
+  color: #c2bfbf;
+  outline: none;
 }
 
 .rounded-btn:active {

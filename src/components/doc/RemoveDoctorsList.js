@@ -3,26 +3,48 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteDoctor, fetchDoctors } from '../../redux/doctors/doctorsSlice';
 import DoctorCard from './DoctorCard';
 import Slider from 'react-slick';
-import '../../DoctorList.css';
+import './DoctorList.css';
+import AlertDialogSlide from './AlertDialogSlide';
+import MessageDialog from './MessageDialog'; 
 
 function RemoveDoctorsList() {
   const dispatch = useDispatch();
   const { doctors } = useSelector((state) => state.doctors);
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState('');
+  const [openDialog, setOpenDialog] = useState(false);
+  const [doctorToDelete, setDoctorToDelete] = useState(null);
+  const [message, setMessage] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     dispatch(fetchDoctors());
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this doctor?')) {
-      dispatch(deleteDoctor(id));
-      setPopupMessage('Doctor has been removed successfully.');
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000); // hide the popup after 3 seconds
-    }
+    setDoctorToDelete(id);
+    setOpenDialog(true);
   };
+
+  const confirmDelete = () => {
+    if (doctorToDelete) {
+      dispatch(deleteDoctor(doctorToDelete))
+        .unwrap()
+        .then(() => {
+          setMessage('Doctor has been removed successfully.');
+          setShowMessage(true);
+        })
+        .catch(() => {
+          setMessage('Failed to remove the doctor. Please try again.');
+          setShowMessage(true);
+        });
+    }
+    setOpenDialog(false);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setDoctorToDelete(null);
+  };
+
 
   const slidesToShowDefault = 3;
   const settings = {
@@ -61,22 +83,17 @@ function RemoveDoctorsList() {
     ]
   };
 
-  const renderPopup = () => {
-    if (!showPopup) return null;
-
-    return (
-      <div className="popup-container">
-        <div className="popup">
-          <p>{popupMessage}</p>
-          <button onClick={() => setShowPopup(false)}>Close</button>
-        </div>
-      </div>
-    );
-  };
+  const renderMessageDialog = () => (
+    <MessageDialog
+      open={showMessage}
+      handleClose={() => setShowMessage(false)}
+      message={message}
+    />
+  );
 
   return (
     <div className="doctorlist-container">
-      <h2>REMOVE DOCTORS</h2>
+      <h2 style={{ fontWeight: '700' }}>REMOVE DOCTORS</h2>
       <p className="text-center" style={{ color: '#777', fontSize: '0.9em' }}>
         Here you can delete the Doctors
       </p>
@@ -95,6 +112,13 @@ function RemoveDoctorsList() {
       ) : (
         <div className="text-center">No doctors available to remove at the moment.</div>
       )}
+       <AlertDialogSlide
+        open={openDialog}
+        handleClose={handleCloseDialog}
+        handleConfirm={confirmDelete}
+        message="Are you sure you want to delete this doctor?"
+      />
+     {renderMessageDialog()}
     </div>
   );
 }
