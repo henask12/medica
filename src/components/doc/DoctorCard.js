@@ -4,8 +4,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import DeleteButton from './DeleteButton';
+import { useNavigate } from 'react-router';
 
 function DoctorCard({ doctor, onDelete, isDeletePage }) {
+  const navigate = useNavigate();
+  const handleDetailsClick = () => {
+    navigate(`/doctors/${doctor?.id}`);
+  };
   return (
     <div className="d-flex justify-content-center my-4">
       <div className="card shadow text-center" style={{
@@ -45,7 +50,9 @@ function DoctorCard({ doctor, onDelete, isDeletePage }) {
               {isDeletePage ? (
             <DeleteButton onDelete={onDelete} id={doctor.id} />
           ) : (
-            <button className="rounded-btn">Details</button>
+            <button className="rounded-btn" onClick={handleDetailsClick}>
+              Make Reservation
+            </button>
           )}
         </div>
       </div>
