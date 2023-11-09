@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, List, ListItem, ListItemText } from "@mui/material";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -32,6 +32,7 @@ const centerListStyle = "flex flex-col justify-center mt-8 ml-6";
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const isMobile = window.innerWidth < 768;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,7 +63,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     dispatch(logoutUser())
       .then(() => {
-        Navigate('/signin');
+        navigate('/signin');
       })
       .catch((error) => {
         console.log('Logout failed:', error);
