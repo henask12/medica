@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { Card, CardContent, CardMedia, TextField, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { fetchDoctors } from '../../redux/doctors/doctorsSlice';
-import { useState } from 'react';
-import { LabelImportantOutlined } from '@mui/icons-material';
+import { searchUserByEmail } from '../../redux/usersSlice';
+import { createReservation } from '../../redux/reservation/reservationSlice';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router';
 
 const Container = styled('div')({
   display: 'flex',
@@ -45,19 +49,30 @@ const FormField = styled(TextField)({
 const ReserveButton = styled(Button)({
   marginTop: '2rem',
   className: 'bg-yellow-500 text-white hover:bg-green-600',
-  backgroundColor: "#a3e635"
+  backgroundColor: "#a3e635",
 });
 
 function DoctorDetails() {
   const { id } = useParams();
-
   const [doctor, setDoctor] = useState(null);
+  const [reservationData, setReservationData] = useState({
+    doctorId: id,
+    city: '',
+    date: new Date(),
+  });
+  const [userId, setUserId] = useState(null);
+
+  const email = localStorage.getItem("email");
   const dispatch = useDispatch();
-  const { doctors, isLoading, error } = useSelector((state) => state.doctors);
+  const { doctors } = useSelector((state) => state.doctors);
 
   useEffect(() => {
     dispatch(fetchDoctors());
-  }, [dispatch]);
+
+    dispatch(searchUserByEmail(email)).then((user) => {
+      setUserId(user.payload.user.id);
+    });
+  }, [dispatch, email]);
 
   useEffect(() => {
     if (doctors) {
@@ -65,9 +80,28 @@ function DoctorDetails() {
       setDoctor(matchedDoctor);
     }
   }, [doctors, id]);
-
+  const navigate = useNavigate();
   const handleReserveClick = () => {
-    // Handle reservation click here
+    const formattedReservationData = {
+      reservation: {
+        date: reservationData.date.toISOString(),
+        city: reservationData.city,
+        user_id: userId,
+        doctor_id: id,
+      },
+    };
+
+    dispatch(createReservation(formattedReservationData))
+      .then(() => {
+        toast.success("Reservation created successfully!");
+
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);      })
+      .catch((error) => {
+        toast.error("An error occurred while creating the reservation.");
+
+      });
   };
 
   return (
@@ -96,6 +130,20 @@ function DoctorDetails() {
               readOnly: true,
             }}
           />
+          <div className="mb-4">
+            <label className="block text-gray-600 text-sm font-semibold mb-2">
+              Date
+            </label>
+            <DatePicker
+              selected={reservationData.date}
+              onChange={(date) => setReservationData({ ...reservationData, date })}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={15}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              className="w-full p-2 border rounded"
+            />
+          </div>
           <Link to={`/reservation/${id}`}>
             <ReserveButton
               variant="contained"
@@ -106,6 +154,7 @@ function DoctorDetails() {
           </Link>
         </FormContainer>
       </StyledCard>
+      <ToastContainer />
     </Container>
   );
 }
