@@ -104,16 +104,16 @@ const ReservationList = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <StyledTableCell>ID</StyledTableCell>
+                <StyledTableCell>#</StyledTableCell>
                 <StyledTableCell>City</StyledTableCell>
                 <StyledTableCell>Doctor</StyledTableCell>
                 <StyledTableCell>Date</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {reservations?.map((reservation) => (
+              {reservations?.map((reservation, index) => (
                 <StyledTableRow key={reservation.id}>
-                  <StyledTableCell>{reservation.id}</StyledTableCell>
+                  <StyledTableCell>{index + 1}</StyledTableCell>
                   <StyledTableCell>{reservation.city}</StyledTableCell>
                   <StyledTableCell>
                     {getDoctorName(reservation.doctor_id)}
