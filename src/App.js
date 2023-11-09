@@ -9,6 +9,7 @@ import Signin from './components/user/SignIn';
 import ReservationList from './components/reservation/ReservationList';
 import AddDoctorForm from './components/doc/AddDoctorForm';
 import RemoveDoctorsList from './components/doc/RemoveDoctorsList';
+import DoctorDetails from './components/reservation/ReserveDoctor';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.users.isAuthenticated);
@@ -41,6 +42,10 @@ function App() {
             <>
               <Sidebar />
               <RemoveDoctorsList />
+            </>} />
+            <Route path="/doctors/:id" element={ <>
+              <Sidebar />
+              <DoctorDetails />
             </>} />
           </>
         ) : 
