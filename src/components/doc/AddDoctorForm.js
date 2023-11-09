@@ -6,24 +6,28 @@ const AddDoctorForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     specialty: '',
-    image: null,
+    image: '', 
   });
   
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  const images = [
+    'Doctor1.png',
+    'Doctor2.png',
+    'Doctor3.png',
+    'Doctor4.png',
+    'Doctor5.png',
+    'Doctor6.png',
+    'Doctor7.png',
+    'Doctor8.png',
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
-
-  const handleImageChange = (e) => {
-    setFormData({
-      ...formData,
-      image: e.target.files[0] ? e.target.files[0] : null,
     });
   };
 
@@ -34,27 +38,26 @@ const AddDoctorForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const data = new FormData();
-    data.append('doctor[name]', formData.name);
-    data.append('doctor[specialty]', formData.specialty);
-  
-    if (formData.image) {
-      data.append('doctor[image]', formData.image, formData.image.name);
-    }
+    const imageUrl = formData.image ? `/assets/${formData.image}` : '';
+
+    const data = {
+      name: formData.name,
+      specialty: formData.specialty,
+      image_url: imageUrl, 
+    };
   
     try {
-      const response = await doctorsService.addDoctor(data);
+      const response = await doctorsService.addDoctor({ doctor: data }); 
       console.log(response.data.message);
-      setShowModal(true); 
+      setShowModal(true);
     } catch (error) {
       console.error(error);
-      
     }
 
     setFormData({ 
       name: '',
       specialty: '',
-      image: null,
+      image: '',
     });
   };
 
@@ -95,36 +98,45 @@ const AddDoctorForm = () => {
 
         <div className="mb-3">
           <label htmlFor="image" className="form-label">Image (optional):</label>
-          <input
-            type="file"
+          <select
             id="image"
             name="image"
-            onChange={handleImageChange}
-            className="form-control"
-          />
+            value={formData.image}
+            onChange={handleInputChange}
+            className="form-select"
+          >
+            <option value="">Select an image</option>
+            {images.map((image, index) => (
+              <option key={index} value={image}>
+                {image}
+              </option>
+            ))}
+          </select>
         </div>
-        <button type="submit" className="add-doctor-btn">ADD DOCTOR</button>
+
+        <button type="submit" className="add-doctor-btn btn btn-primary">ADD DOCTOR</button>
         <button type="button" className="btn btn-link" onClick={handleBackToList}>
-        BACK TO DOCTORS LIST
-      </button>
+          BACK TO DOCTORS LIST
+        </button>
+
         {showModal && (
-        <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Success</h5>
-                <button type="button" className="btn-close" onClick={handleCloseModal}></button>
-              </div>
-              <div className="modal-body">
-                <p>The doctor has been added successfully!</p>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
+          <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Success</h5>
+                  <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                </div>
+                <div className="modal-body">
+                  <p>The doctor has been added successfully!</p>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
       </form>
     </div>
   );
