@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 function DoctorCard({ doctor, onDelete, isDeletePage }) {
   const navigate = useNavigate();
   const handleDetailsClick = () => {
-    navigate(`/doctors/${doctor?.id}`);
+    navigate(`/reservation/${doctor?.id}`);
   };
   return (
     <div className="d-flex justify-content-center my-4">
