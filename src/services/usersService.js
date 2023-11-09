@@ -26,4 +26,20 @@ usersService.loginUser = function (loginData) {
   });
 };
 
+usersService.searchByEmail = async function (email) {
+  return axios
+    .get(`${API_BASE_URL}/users/search_by_email?email=${email}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+
 export default usersService;
