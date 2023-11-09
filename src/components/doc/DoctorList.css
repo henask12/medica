@@ -61,7 +61,8 @@
   font-weight: 600;
 }
 
-.rounded-btn:hover, .add-doctor-btn:hover {
+.rounded-btn:hover,
+.add-doctor-btn:hover {
   border: solid 3px #7aaf07;
   background-color: white;
   color: #7aaf07;
