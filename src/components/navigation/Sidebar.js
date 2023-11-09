@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Card, List, ListItem, ListItemText } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import LogoutIcon from '@mui/icons-material/Logout';
 import DeleteIcon from "@mui/icons-material/Delete";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/usersSlice";
 
 
 const sidebarStyle = {
@@ -21,7 +25,7 @@ const sidebarStyle = {
 
 const listItemStyle = "flex items-center px-6 py-3 transition duration-300 ease-in-out";
 const listItemHoverStyle = "bg-gray-100";
-const listItemActiveStyle = "bg-yellow-500";
+const listItemActiveStyle = "bg-yellow-700";
 
 const centerListStyle = "flex flex-col justify-center mt-8 ml-6";
 
@@ -53,6 +57,18 @@ const Sidebar = () => {
     setShowSidebar(false);
   };
 
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
+      .then(() => {
+        Navigate('/signin');
+      })
+      .catch((error) => {
+        console.log('Logout failed:', error);
+      });
+  };
+
   return (
     <div>
       {isMobile ? (
@@ -70,41 +86,42 @@ const Sidebar = () => {
             <button onClick={closeSidebar} className="fixed top-4 right-4 z-50 p-2 bg-gray-100 rounded-md">
               {/* Close icon */}
               <svg
-  xmlns="http://www.w3.org/2000/svg"
-  fill="none"
-  viewBox="0 0 24 24"
-  stroke="currentColor"
-  className="w-6 h-6"
->
-  <path
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    strokeWidth="2"
-    d="M6 18L18 6M6 6l12 12"
-  />
-</svg>
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-6 h-6"
+              >
+              <path
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+              </svg>
 
             </button>
           )}
 
           <div className="bg-teal-500 text-white py-8 px-8">
-            <h1 className="text-2xl font-semibold">My App</h1>
+            <h1 className="text-2xl font-semibold">24 Hour Doctor</h1>
           </div>
 
           <div className={centerListStyle}>
             <List>
               <ListItem
                 button
-                component={Link}
-                to="/doctors"
-                className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
+                component={NavLink}
+                to="/"
+                activeClassName={listItemActiveStyle}
+                className={`${listItemStyle} hover:${listItemHoverStyle}`}
               >
                 <AccountBoxIcon className="mr-2" /> {/* Icon */}
                 <ListItemText primary="Doctors" />
               </ListItem>
               <ListItem
                 button
-                component={Link}
+                component={NavLink}
                 to="/sidebar"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
@@ -113,12 +130,20 @@ const Sidebar = () => {
               </ListItem>
               <ListItem
                 button
-                component={Link}
+                component={NavLink}
                 to="/sidebar"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
                 <DeleteIcon className="mr-2" /> {/* Icon */}
                 <ListItemText primary="Delete Doctor" />
+              </ListItem>
+              <ListItem
+                button
+                onClick={handleLogout}
+                className={`${listItemStyle} hover:${listItemHoverStyle} mt-8`}
+              >
+                <LogoutIcon className="mr-2" />
+                <ListItemText primary="Logout" />
               </ListItem>
             </List>
           </div>
