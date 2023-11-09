@@ -25,6 +25,7 @@ const Signin = () => {
 		  };
 		const action = await dispatch(loginUser(userData));
 		if (loginUser.fulfilled.match(action)) {
+			localStorage.setItem('email', formData.email);
 		  navigate('/');
 		} else if (loginUser.rejected.match(action)) {
 			setError(action.error.message);

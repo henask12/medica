@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   user: null,
   isAuthenticated: false,
+  email: null
 };
 
 export const createUser = createAsyncThunk('users/createUser', async (userData, { rejectWithValue }) => {
@@ -20,6 +21,24 @@ export const createUser = createAsyncThunk('users/createUser', async (userData, 
 export const loginUser = createAsyncThunk('users/login', async (loginData, { rejectWithValue }) => {
   try {
     const response = await usersService.loginUser(loginData);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
+export const logoutUser = createAsyncThunk('users/logout', async (_, { rejectWithValue }) => {
+  try {
+    localStorage.removeItem('email');
+    return null;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
+
+export const searchUserByEmail = createAsyncThunk('users/searchByEmail', async (email, { rejectWithValue }) => {
+  try {
+    const response = await usersService.searchByEmail(email);
     return response.data;
   } catch (error) {
     return rejectWithValue(error);
@@ -60,6 +79,31 @@ const usersSlice = createSlice({
         state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(searchUserByEmail.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(searchUserByEmail.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(searchUserByEmail.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
