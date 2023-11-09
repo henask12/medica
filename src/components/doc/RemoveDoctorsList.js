@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteDoctor, fetchDoctors } from '../../redux/doctors/doctorsSlice';
 import DoctorCard from './DoctorCard';
 import Slider from 'react-slick';
-import '../../DoctorList.css';
+import './DoctorList.css';
 
 function RemoveDoctorsList() {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function RemoveDoctorsList() {
       dispatch(deleteDoctor(id));
       setPopupMessage('Doctor has been removed successfully.');
       setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000); // hide the popup after 3 seconds
+      setTimeout(() => setShowPopup(false), 3000); 
     }
   };
 
@@ -76,7 +76,7 @@ function RemoveDoctorsList() {
 
   return (
     <div className="doctorlist-container">
-      <h2>REMOVE DOCTORS</h2>
+      <h2 style={{ fontWeight: '700' }}>REMOVE DOCTORS</h2>
       <p className="text-center" style={{ color: '#777', fontSize: '0.9em' }}>
         Here you can delete the Doctors
       </p>

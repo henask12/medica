@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DoctorCard from './DoctorCard';
 import Slider from 'react-slick';
-import '../../DoctorList.css';
+import './DoctorList.css';
 import { fetchDoctors } from '../../redux/doctors/doctorsSlice';
 
 function DoctorList() {
@@ -52,7 +52,7 @@ function DoctorList() {
 
   return (
     <div className="doctorlist-container">
-      <h2 className="text-center">DOCTORS LIST</h2>
+      <h2 className="text-center" style={{ fontWeight: '700' }}>DOCTORS LIST</h2>
       <p className="text-center" style={{ color: '#777', fontSize: '0.9em' }}>
         Here you can find the best Doctors
       </p>
