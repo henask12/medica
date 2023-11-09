@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import doctorsService from '../../services/doctorsService';
 
 const AddDoctorForm = () => {
@@ -9,6 +10,7 @@ const AddDoctorForm = () => {
   });
   
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +25,10 @@ const AddDoctorForm = () => {
       ...formData,
       image: e.target.files[0] ? e.target.files[0] : null,
     });
+  };
+
+  const handleBackToList = () => {
+    navigate('/');
   };
 
   const handleSubmit = async (e) => {
@@ -58,7 +64,7 @@ const AddDoctorForm = () => {
 
   return (
     <div className="doctorlist-container">
-      <h2 className="mb-4">ADD A NEW DOCTOR</h2>
+      <h2 className="mb-4" style={{ fontWeight: '700' }}>ADD A NEW DOCTOR</h2>
       <hr style={{ width: '10%', border: 'none', borderBottom: '3px dotted #c2bfbf', margin: '0 auto 10px' }} />
       <form onSubmit={handleSubmit} className="border p-4 shadow">
         <div className="mb-3">
@@ -97,7 +103,10 @@ const AddDoctorForm = () => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="rounded-btn">ADD DOCTOR</button>
+        <button type="submit" className="add-doctor-btn">ADD DOCTOR</button>
+        <button type="button" className="btn btn-link" onClick={handleBackToList}>
+        BACK TO DOCTORS LIST
+      </button>
         {showModal && (
         <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
           <div className="modal-dialog">
