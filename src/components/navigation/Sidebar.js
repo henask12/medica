@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/usersSlice";
+import BookIcon from '@mui/icons-material/Book';
 
 
 const sidebarStyle = {
@@ -74,7 +75,6 @@ const Sidebar = () => {
     <div>
       {isMobile ? (
         <button onClick={toggleSidebar} className="fixed top-4 left-4 z-50 p-2 bg-gray-100 rounded-md">
-          {/* Hamburger icon */}
           <div className={`w-6 h-0.5 mb-1 bg-gray-800 ${showSidebar ? "block" : "hidden"}`}></div>
           <div className={`w-6 h-0.5 mb-1 bg-gray-800 ${showSidebar ? "block" : "hidden"}`}></div>
           <div className={`w-6 h-0.5 mb-1 bg-gray-800 ${showSidebar ? "block" : "hidden"}`}></div>
@@ -85,7 +85,7 @@ const Sidebar = () => {
         <Card style={sidebarStyle}>
           {isMobile && (
             <button onClick={closeSidebar} className="fixed top-4 right-4 z-50 p-2 bg-gray-100 rounded-md">
-              {/* Close icon */}
+
               <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -126,7 +126,7 @@ const Sidebar = () => {
                 to="/reservation"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
-                <AddBoxIcon className="mr-2" /> {/* Icon */}
+                <BookIcon className="mr-2" />
                 <ListItemText primary="My Reservation" />
               </ListItem>
               
@@ -136,7 +136,7 @@ const Sidebar = () => {
                 to="/addDoctor"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
-                <AddBoxIcon className="mr-2" /> {/* Icon */}
+                <AddBoxIcon className="mr-2" />
                 <ListItemText primary="Add Doctor" />
               </ListItem>
               <ListItem
@@ -145,7 +145,7 @@ const Sidebar = () => {
                 to="/deleteDoctor"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
-                <DeleteIcon className="mr-2" /> {/* Icon */}
+                <DeleteIcon className="mr-2" />
                 <ListItemText primary="Delete Doctor" />
               </ListItem>
               <ListItem
