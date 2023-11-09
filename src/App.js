@@ -43,7 +43,7 @@ function App() {
               <Sidebar />
               <RemoveDoctorsList />
             </>} />
-            <Route path="/doctors/:id" element={ <>
+            <Route path="/reservation/:id" element={ <>
               <Sidebar />
               <DoctorDetails />
             </>} />
