@@ -104,7 +104,7 @@ const Sidebar = () => {
             </button>
           )}
 
-          <div className="bg-teal-500 text-white py-8 px-8">
+          <div className="bg-lime-500 text-white py-8 px-8">
             <h1 className="text-2xl font-semibold">24 Hour Doctor</h1>
           </div>
 

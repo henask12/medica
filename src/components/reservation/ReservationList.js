@@ -86,18 +86,20 @@ const ReservationList = () => {
     <div className="flex flex-col card shadow-lg m-4 bg-gray-100">
       <div className="flex flex-row justify-between">
         <div
-          className={`flex flex-col card sidebar-content ${
-            isLargeScreen ? "sidebar-desktop" : "sidebar-mobile"
-          }`}
+          className={`flex flex-col card ${
+            isLargeScreen
+              ? "w-4/4"
+              : "w-3/4"
+          } bg-gray-100 p-4 rounded-lg`}
           style={isLargeScreen ? { marginLeft: "16rem" } : {}}
         >
           <h1 className="text-xl font-bold">My Reservations</h1>
         </div>
       </div>
       <div
-        className={`flex flex-col card sidebar-content ${
-          isLargeScreen ? "sidebar-desktop" : "sidebar-mobile"
-        }`}
+        className={`flex flex-col card ${
+          isLargeScreen ? "w-4/4" : "w-3/4"
+        } bg-white p-4 rounded-lg`}
         style={isLargeScreen ? { marginLeft: "16rem" } : {}}
       >
         <TableContainer component={Paper}>
@@ -115,9 +117,7 @@ const ReservationList = () => {
                 <StyledTableRow key={reservation.id}>
                   <StyledTableCell>{index + 1}</StyledTableCell>
                   <StyledTableCell>{reservation.city}</StyledTableCell>
-                  <StyledTableCell>
-                    {getDoctorName(reservation.doctor_id)}
-                  </StyledTableCell>
+                  <StyledTableCell>{getDoctorName(reservation.doctor_id)}</StyledTableCell>
                   <StyledTableCell>{reservation.date}</StyledTableCell>
                 </StyledTableRow>
               ))}
