@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import DeleteButton from './DeleteButton';
 
-function DoctorCard({ doctor }) {
+function DoctorCard({ doctor, onDelete, isDeletePage }) {
   return (
     <div className="d-flex justify-content-center my-4">
       <div className="card shadow text-center" style={{
         width: '350px',
-        height: '400px',
+        height: 'auto',
         borderRadius: '20px',
         borderColor: '#e3e3e3',
         transition: 'transform 0.3s ease-in-out'
@@ -41,7 +42,11 @@ function DoctorCard({ doctor }) {
             <FaLinkedin />
           </a>
           </div>
-          <button className="rounded-btn">Details</button>
+              {isDeletePage ? (
+            <DeleteButton onDelete={onDelete} id={doctor.id} />
+          ) : (
+            <button className="rounded-btn">Details</button>
+          )}
         </div>
       </div>
     </div>
@@ -54,7 +59,9 @@ DoctorCard.propTypes = {
     name: PropTypes.string.isRequired,
     specialty: PropTypes.string.isRequired,
     image_url: PropTypes.string
-  })
+  }),
+  onDelete: PropTypes.func,
+  isDeletePage: PropTypes.bool 
 };
 
 export default DoctorCard;

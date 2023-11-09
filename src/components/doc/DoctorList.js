@@ -73,3 +73,4 @@ function DoctorList() {
 }
 
 export default DoctorList;
+
