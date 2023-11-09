@@ -122,7 +122,17 @@ const Sidebar = () => {
               <ListItem
                 button
                 component={NavLink}
-                to="/sidebar"
+                to="/reservation"
+                className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
+              >
+                <AddBoxIcon className="mr-2" /> {/* Icon */}
+                <ListItemText primary="My Reservation" />
+              </ListItem>
+              
+              <ListItem
+                button
+                component={NavLink}
+                to="/addDoctor"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
                 <AddBoxIcon className="mr-2" /> {/* Icon */}
@@ -131,7 +141,7 @@ const Sidebar = () => {
               <ListItem
                 button
                 component={NavLink}
-                to="/sidebar"
+                to="/deleteDoctor"
                 className={`${listItemStyle} hover:${listItemHoverStyle} active:${listItemActiveStyle}`}
               >
                 <DeleteIcon className="mr-2" /> {/* Icon */}
