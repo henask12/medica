@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import doctorsService from '../../services/doctorsService';
+import MessageDialog from './MessageDialog'; 
 
 const AddDoctorForm = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,8 @@ const AddDoctorForm = () => {
     image: '', 
   });
   
-  const [showModal, setShowModal] = useState(false);
+  const [showMessage, setShowMessage] = useState(false); // Estado para mostrar el diálogo
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const images = [
@@ -47,10 +49,12 @@ const AddDoctorForm = () => {
     };
   
     try {
-      const response = await doctorsService.addDoctor({ doctor: data }); 
-      console.log(response.data.message);
-      setShowModal(true);
+      const response = await doctorsService.addDoctor({ doctor: data });
+      setMessage('The doctor has been added successfully!');
+      setShowMessage(true);
     } catch (error) {
+      setMessage('Failed to add the doctor. Please try again.');
+      setShowMessage(true);
       console.error(error);
     }
 
@@ -61,8 +65,8 @@ const AddDoctorForm = () => {
     });
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseMessage = () => {
+    setShowMessage(false);
   };
 
   return (
@@ -118,25 +122,12 @@ const AddDoctorForm = () => {
         <button type="button" className="btn btn-link" onClick={handleBackToList}>
           BACK TO DOCTORS LIST
         </button>
-
-        {showModal && (
-          <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Success</h5>
-                  <button type="button" className="btn-close" onClick={handleCloseModal}></button>
-                </div>
-                <div className="modal-body">
-                  <p>The doctor has been added successfully!</p>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        <MessageDialog
+        open={showMessage}
+        handleClose={handleCloseMessage}
+        message={message}
+      />
+    
       </form>
     </div>
   );
