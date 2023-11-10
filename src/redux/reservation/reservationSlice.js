@@ -34,9 +34,9 @@ export const createReservation = createAsyncThunk(
 // Update Reservation
 export const updateReservation = createAsyncThunk(
   'reservation/updateReservation',
-  async ({ reservationId, reservationData }, { rejectWithValue }) => {
+  async ({ reservationId, editedData }, { rejectWithValue }) => {
     try {
-      const response = await reservationService.updateReservation(reservationId, reservationData);
+      const response = await reservationService.updateReservation(reservationId, editedData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);

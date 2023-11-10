@@ -35,6 +35,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import reservationService from "../../services/reservationService";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   "&.MuiTableCell-head": {
@@ -99,15 +100,14 @@ const ReservationList = () => {
   const isLargeScreen = useMediaQuery("(min-width:768px");
 
   const handleUpdate = (reservation) => {
-    debugger
     setReservationToUpdate(reservation);
     setEditedCity(reservation.city);
     setEditedDate(new Date(reservation.date));
     setUpdateDialogOpen(true);
   };
 
+
   const handleCityChange = (event) => {
-    debugger
     setEditedCity(event.target.value);
   };
 
@@ -143,6 +143,38 @@ const ReservationList = () => {
     });
   };
 
+  const handleUpdateClick = async () => {
+    handleCloseUpdateDialog();
+    if (reservationToUpdate) {
+      const editedData = {
+          city: editedCity,
+          date: editedDate,
+      };
+  
+      try {
+        const updatedData = await updateReservationAsync(reservationToUpdate.id, editedData);
+        dispatch(updateReservation(updatedData));
+        showSuccessToast("Reservation updated successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } catch (error) {
+        showErrorToast("Failed to update reservation");
+      }
+    }
+  };
+
+  //async update
+  const updateReservationAsync = async (reservationId, editedData) => {
+    try {
+      const response = await reservationService.updateReservation(reservationId, editedData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+
   return (
     <div className="flex flex-col card shadow-lg m-4 bg-gray-100">
       <div className="flex flex-row justify-between">
@@ -173,9 +205,9 @@ const ReservationList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {reservations?.map((reservation) => (
+              {reservations?.map((reservation, index) => (
                 <StyledTableRow key={reservation.id}>
-                  <StyledTableCell>{reservation.id}</StyledTableCell>
+                  <StyledTableCell>{index + 1}</StyledTableCell>
                   <StyledTableCell>{reservation.city}</StyledTableCell>
                   <StyledTableCell>
                     {getDoctorName(reservation.doctor_id)}
@@ -217,6 +249,9 @@ const ReservationList = () => {
                 dispatch(deleteReservation(reservationToDelete))
                   .then(() => {
                     showSuccessToast("Reservation deleted successfully");
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 3000);
                   })
                   .catch((error) => {
                     showErrorToast("Failed to delete reservation");
@@ -263,27 +298,11 @@ const ReservationList = () => {
             Cancel
           </Button>
           <Button
-            onClick={() => {
-              handleCloseUpdateDialog();
-              if (reservationToUpdate) {
-                dispatch(
-                  updateReservation({
-                    reservationId: reservationToUpdate.id,
-                    editedData: { city: editedCity, date: editedDate },
-                  })
-                )
-                  .then(() => {
-                    showSuccessToast("Reservation updated successfully");
-                  })
-                  .catch((error) => {
-                    showErrorToast("Failed to update reservation");
-                  });
-              }
-            }}
+            onClick={handleUpdateClick}
             color="primary"
             variant="outlined"
-          >
-            Save
+            >
+             Save
           </Button>
         </DialogActions>
       </Dialog>

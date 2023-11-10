@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { createUser } from '../../redux/usersSlice';
+import logo from '../../assets/logoTwo.png';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -105,6 +106,7 @@ const Signup = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-4 max-w-md w-full">
+      <img src={logo} alt="Logo" className="mx-auto mb-4 h-22 w-66" />
         <h3 className="text-2xl text-center font-semibold mb-4">Sign Up</h3>
         {successMessage && (
           <div className="bg-green-200 text-green-800 border p-2 rounded-md mb-4">
@@ -157,11 +159,11 @@ const Signup = () => {
             />
           </div>
           <div className="mt-4">
-            <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md cursor-pointer">Submit</button>
+            <button type="submit" className="w-full p-2 bg-lime-500 text-white rounded-md cursor-pointer">Submit</button>
           </div>
         </form>
         <p className="mt-4 text-center">
-          Already have an account? <Link to="/signin" className="text-blue-500 font-semibold">Login</Link>
+          Already have an account? <Link to="/signin" className="text-lime-500 font-semibold">Login</Link>
         </p>
       </div>
 

@@ -36,10 +36,9 @@ reservationService.createReservation = async function (reservationData) {
     });
 };
 
-reservationService.updateReservation = async function (reservationId, reservationData) {
-  debugger
+reservationService.updateReservation = async function (reservationId, editedData) {
   return axios
-    .put(`${API_BASE_URL}/reservations/${reservationId}`, reservationData, {
+    .put(`${API_BASE_URL}/reservations/${reservationId}`, editedData, {
       headers: {
         'Content-Type': 'application/json',
       },

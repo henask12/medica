@@ -82,6 +82,10 @@ function DoctorDetails() {
   }, [doctors, id]);
   const navigate = useNavigate();
   const handleReserveClick = () => {
+    if (!reservationData.city.trim()) {
+        toast.error("City cannot be empty");
+        return;
+      }
     const formattedReservationData = {
       reservation: {
         date: reservationData.date.toISOString(),
@@ -129,6 +133,15 @@ function DoctorDetails() {
             InputProps={{
               readOnly: true,
             }}
+          />
+          <FormField
+            label="Enter City"
+            variant="outlined"
+            InputProps={{
+              readOnly: false,
+            }}
+            value={reservationData.city}
+             onChange={(e) => setReservationData({ ...reservationData, city: e.target.value })}
           />
           <div className="mb-4">
             <label className="block text-gray-600 text-sm font-semibold mb-2">
