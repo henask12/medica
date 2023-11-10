@@ -37,9 +37,9 @@ export default function AlertDialogSlide({ open, handleClose, handleConfirm, mes
 
 
 AlertDialogSlide.propTypes = {
-  open: PropTypes.bool.isRequired, // open debe ser un booleano y es requerido
-  handleClose: PropTypes.func.isRequired, // onClose debe ser una función y es requerida
-  handleConfirm: PropTypes.func.isRequired, // onDisagree debe ser una función y es requerida
-  message: PropTypes.func.isRequired, // onAgree debe ser una función y es requerida
+  open: PropTypes.bool.isRequired, 
+  handleClose: PropTypes.func.isRequired, 
+  handleConfirm: PropTypes.func.isRequired, 
+  message: PropTypes.func.isRequired, 
 };
 
