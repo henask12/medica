@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../../redux/usersSlice';
+import logo from '../../assets/logo.png';
 
 const Signin = () => {
   const [formData, setFormData] = useState({
@@ -48,6 +49,7 @@ const Signin = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full p-6 bg-white shadow-lg rounded-md">
+      <img src={logo} alt="Logo" className="mx-auto mb-4" />
         <h3 className="text-2xl font-semibold text-center mb-4">Sign In</h3>
         {error && (
           <div className="mb-4 p-2 bg-red-100 text-red-700 rounded-md">
