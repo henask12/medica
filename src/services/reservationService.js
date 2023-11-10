@@ -37,7 +37,6 @@ reservationService.createReservation = async function (reservationData) {
 };
 
 reservationService.updateReservation = async function (reservationId, editedData) {
-  debugger
   return axios
     .put(`${API_BASE_URL}/reservations/${reservationId}`, editedData, {
       headers: {

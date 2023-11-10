@@ -146,8 +146,6 @@ const ReservationList = () => {
   const handleUpdateClick = async () => {
     handleCloseUpdateDialog();
     if (reservationToUpdate) {
-      console.log(editedCity, editedDate);
-      debugger;
       const editedData = {
           city: editedCity,
           date: editedDate,
@@ -168,7 +166,6 @@ const ReservationList = () => {
 
   //async update
   const updateReservationAsync = async (reservationId, editedData) => {
-    debugger
     try {
       const response = await reservationService.updateReservation(reservationId, editedData);
       return response.data;

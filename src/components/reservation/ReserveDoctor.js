@@ -82,7 +82,6 @@ function DoctorDetails() {
   }, [doctors, id]);
   const navigate = useNavigate();
   const handleReserveClick = () => {
-    debugger
     if (!reservationData.city.trim()) {
         toast.error("City cannot be empty");
         return;
