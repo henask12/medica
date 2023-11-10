@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import doctorsService from '../../services/doctorsService';
 import MessageDialog from './MessageDialog'; 
+import Select from 'react-select'; 
+import makeAnimated from 'react-select/animated';
 
 const AddDoctorForm = () => {
   const [formData, setFormData] = useState({
@@ -10,20 +12,58 @@ const AddDoctorForm = () => {
     image: '', 
   });
   
-  const [showMessage, setShowMessage] = useState(false); // Estado para mostrar el diálogo
+  const [showMessage, setShowMessage] = useState(false); 
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const images = [
-    'Doctor1.png',
-    'Doctor2.png',
-    'Doctor3.png',
-    'Doctor4.png',
-    'Doctor5.png',
-    'Doctor6.png',
-    'Doctor7.png',
-    'Doctor8.png',
+  const images2 = [
+    { value: 'Doctor1.png', label: 'Doctor1', image: '/assets/Doctor1.png' },
+    { value: 'Doctor2.png', label: 'Doctor2', image: '/assets/Doctor2.png' },
+    { value: 'Doctor3.png', label: 'Doctor3', image: '/assets/Doctor3.png' },
+    { value: 'Doctor4.png', label: 'Doctor4', image: '/assets/Doctor4.png' },
+    { value: 'Doctor5.png', label: 'Doctor5', image: '/assets/Doctor5.png' },
+    { value: 'Doctor6.png', label: 'Doctor6', image: '/assets/Doctor6.png' },
+    { value: 'Doctor7.png', label: 'Doctor7', image: '/assets/Doctor7.png' },
+    { value: 'Doctor8.png', label: 'Doctor8', image: '/assets/Doctor8.png' },
   ];
+
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: 'white',
+      borderColor: state.isFocused ? '#blue' : '#ddd',
+      boxShadow: state.isFocused ? '0 0 0 1px #blue' : 'none',
+      '&:hover': {
+        borderColor: state.isFocused ? '#blue' : '#ddd',
+      },
+    }),
+    option: (provided, { isFocused, isSelected }) => ({
+      ...provided,
+      backgroundColor: isFocused ? '#f3f3f3' : isSelected ? '#eee' : null,
+      color: '#333',
+      padding: 20,
+    }),
+    menu: (provided) => ({
+      ...provided,
+      position: 'absolute', 
+      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)',
+      border: 'none',
+      maxHeight: '300px', 
+      overflowY: 'auto',
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: '#333',
+    }),
+  };
+
+
+  const formatOptionLabel = ({ value, label, image }) => (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <img src={image} alt={label} style={{ width: '100px', height: '100px', marginRight: '10px' }} />
+      <span style={{ fontSize: '16px' }}>{label}</span> 
+    </div>
+  );
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +110,7 @@ const AddDoctorForm = () => {
   };
 
   return (
-    <div className="doctorlist-container">
+    <div className="doctorform-container">
       <h2 className="mb-4" style={{ fontWeight: '700' }}>ADD A NEW DOCTOR</h2>
       <hr style={{ width: '10%', border: 'none', borderBottom: '3px dotted #c2bfbf', margin: '0 auto 10px' }} />
       <form onSubmit={handleSubmit} className="border p-4 shadow">
@@ -102,23 +142,20 @@ const AddDoctorForm = () => {
 
         <div className="mb-3">
           <label htmlFor="image" className="form-label">Image (optional):</label>
-          <select
+          <Select
             id="image"
             name="image"
-            value={formData.image}
-            onChange={handleInputChange}
-            className="form-select"
-          >
-            <option value="">Select an image</option>
-            {images.map((image, index) => (
-              <option key={index} value={image}>
-                {image}
-              </option>
-            ))}
-          </select>
+            value={images2.find(img => img.value === formData.image)}
+            onChange={selectedOption => setFormData({ ...formData, image: selectedOption.value })}
+            options={images2}
+            formatOptionLabel={formatOptionLabel}
+            components={makeAnimated()}
+            styles={customStyles}
+            menuPlacement="top"
+          />
         </div>
 
-        <button type="submit" className="add-doctor-btn btn btn-primary">ADD DOCTOR</button>
+        <button type="submit" className="add-doctor-btn btn rounded-btn">ADD DOCTOR</button>
         <button type="button" className="btn btn-link" onClick={handleBackToList}>
           BACK TO DOCTORS LIST
         </button>
