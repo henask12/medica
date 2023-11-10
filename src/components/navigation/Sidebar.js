@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/usersSlice";
 import BookIcon from '@mui/icons-material/Book';
+import logo from '../../assets/sideBar.png';
 
 
 const sidebarStyle = {
@@ -104,8 +105,8 @@ const Sidebar = () => {
             </button>
           )}
 
-          <div className="bg-lime-500 text-white py-8 px-8">
-            <h1 className="text-2xl font-semibold">24 Hour Doctor</h1>
+          <div className="bg-lime-500 text-white ">
+              <img src={logo} alt="Logo" className="mx-auto mb-4 h-full w-full object-cover" />
           </div>
 
           <div className={centerListStyle}>
