@@ -99,7 +99,6 @@ const ReservationList = () => {
   const isLargeScreen = useMediaQuery("(min-width:768px");
 
   const handleUpdate = (reservation) => {
-    debugger
     setReservationToUpdate(reservation);
     setEditedCity(reservation.city);
     setEditedDate(new Date(reservation.date));
@@ -107,7 +106,6 @@ const ReservationList = () => {
   };
 
   const handleCityChange = (event) => {
-    debugger
     setEditedCity(event.target.value);
   };
 
@@ -173,9 +171,9 @@ const ReservationList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {reservations?.map((reservation) => (
+              {reservations?.map((reservation, index) => (
                 <StyledTableRow key={reservation.id}>
-                  <StyledTableCell>{reservation.id}</StyledTableCell>
+                  <StyledTableCell>{index + 1}</StyledTableCell>
                   <StyledTableCell>{reservation.city}</StyledTableCell>
                   <StyledTableCell>
                     {getDoctorName(reservation.doctor_id)}
@@ -217,6 +215,9 @@ const ReservationList = () => {
                 dispatch(deleteReservation(reservationToDelete))
                   .then(() => {
                     showSuccessToast("Reservation deleted successfully");
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 3000);
                   })
                   .catch((error) => {
                     showErrorToast("Failed to delete reservation");
@@ -274,6 +275,9 @@ const ReservationList = () => {
                 )
                   .then(() => {
                     showSuccessToast("Reservation updated successfully");
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 3000);
                   })
                   .catch((error) => {
                     showErrorToast("Failed to update reservation");
