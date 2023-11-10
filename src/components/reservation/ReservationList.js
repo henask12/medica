@@ -35,6 +35,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import reservationService from "../../services/reservationService";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   "&.MuiTableCell-head": {
@@ -105,6 +106,7 @@ const ReservationList = () => {
     setUpdateDialogOpen(true);
   };
 
+
   const handleCityChange = (event) => {
     setEditedCity(event.target.value);
   };
@@ -140,6 +142,41 @@ const ReservationList = () => {
       autoClose: 3000,
     });
   };
+
+  const handleUpdateClick = async () => {
+    handleCloseUpdateDialog();
+    if (reservationToUpdate) {
+      console.log(editedCity, editedDate);
+      debugger;
+      const editedData = {
+          city: editedCity,
+          date: editedDate,
+      };
+  
+      try {
+        const updatedData = await updateReservationAsync(reservationToUpdate.id, editedData);
+        dispatch(updateReservation(updatedData));
+        showSuccessToast("Reservation updated successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      } catch (error) {
+        showErrorToast("Failed to update reservation");
+      }
+    }
+  };
+
+  //async update
+  const updateReservationAsync = async (reservationId, editedData) => {
+    debugger
+    try {
+      const response = await reservationService.updateReservation(reservationId, editedData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
 
   return (
     <div className="flex flex-col card shadow-lg m-4 bg-gray-100">
@@ -264,30 +301,11 @@ const ReservationList = () => {
             Cancel
           </Button>
           <Button
-            onClick={() => {
-              handleCloseUpdateDialog();
-              if (reservationToUpdate) {
-                dispatch(
-                  updateReservation({
-                    reservationId: reservationToUpdate.id,
-                    editedData: { city: editedCity, date: editedDate },
-                  })
-                )
-                  .then(() => {
-                    showSuccessToast("Reservation updated successfully");
-                    setTimeout(() => {
-                      window.location.reload();
-                    }, 3000);
-                  })
-                  .catch((error) => {
-                    showErrorToast("Failed to update reservation");
-                  });
-              }
-            }}
+            onClick={handleUpdateClick}
             color="primary"
             variant="outlined"
-          >
-            Save
+            >
+             Save
           </Button>
         </DialogActions>
       </Dialog>
