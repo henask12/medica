@@ -159,11 +159,11 @@ const Signup = () => {
             />
           </div>
           <div className="mt-4">
-            <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md cursor-pointer">Submit</button>
+            <button type="submit" className="w-full p-2 bg-lime-500 text-white rounded-md cursor-pointer">Submit</button>
           </div>
         </form>
         <p className="mt-4 text-center">
-          Already have an account? <Link to="/signin" className="text-blue-500 font-semibold">Login</Link>
+          Already have an account? <Link to="/signin" className="text-lime-500 font-semibold">Login</Link>
         </p>
       </div>
 

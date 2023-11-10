@@ -84,13 +84,13 @@ const Signin = () => {
             />
           </div>
           <div className="mb-4">
-            <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md">
+            <button type="submit" className="w-full p-2 bg-lime-500 text-white rounded-md">
               Submit
             </button>
           </div>
         </form>
         <p className="text-center">
-          Do Not have an account? <Link to="/" className="text-blue-500 font-semibold"><b>Sign Up</b></Link>
+          Do Not have an account? <Link to="/" className="text-lime-500 font-semibold"><b>Sign Up</b></Link>
         </p>
       </div>
     </div>
